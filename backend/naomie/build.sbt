@@ -1,6 +1,5 @@
+import org.fusesource.scalate.ScalatePlugin.ScalateKeys._
 import org.scalatra.sbt._
-import org.scalatra.sbt.PluginKeys._
-import ScalateKeys._
 
 val ScalatraVersion = "2.5.0"
 
@@ -19,6 +18,8 @@ scalaVersion := "2.12.1"
 resolvers += Classpaths.typesafeReleases
 
 libraryDependencies ++= Seq(
+  "org.json4s" %% "json4s-jackson" % "3.5.0",
+  "org.scalatra" %% "scalatra-json" % ScalatraVersion,
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
   "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
