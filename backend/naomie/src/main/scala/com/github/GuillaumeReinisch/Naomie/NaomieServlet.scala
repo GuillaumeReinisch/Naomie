@@ -24,6 +24,15 @@ object GraphicsData {
 
 class NaomieServlet extends NaomieStack with JacksonJsonSupport {
 
+  protected implicit val jsonFormats: Formats = DefaultFormats
+
+  val logger =  LoggerFactory.getLogger(getClass)
+
+  before() {
+    contentType = formats("json")
+  }
+
+
   get("/") {
     contentType = formats("html")
     <html>
