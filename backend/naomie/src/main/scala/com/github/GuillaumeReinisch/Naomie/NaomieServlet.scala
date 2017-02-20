@@ -6,14 +6,11 @@ import org.slf4j.LoggerFactory
 
 // JSON-related libraries
 import org.json4s.{DefaultFormats, Formats}
-
 // JSON handling support from Scalatra
 
 import com.github.GuillaumeReinisch.Naomie.models.Graphic
 import com.google.cloud.datastore.DatastoreOptions
 import org.scalatra.json._
-
-case class Graphic( id: String, name: String , axis: List[String]){}
 
 object GraphicsData {
 
@@ -27,14 +24,14 @@ object GraphicsData {
 }
 
 
-class NaomieServlet extends NaomieStack with JacksonJsonSupport {
+class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSupport*/ {
 
   protected implicit val jsonFormats: Formats = DefaultFormats
 
   protected val applicationName           = Some("Naomie")
   protected val applicationDescription    = "The Naomie API. It exposes operations for managing data w/ datastore."
 
-  val logger =  LoggerFactory.getLogger(getClass)
+  val logger    =  LoggerFactory.getLogger(getClass)
 
   val projectId   = "malcom-gedi"
   val namespace   = "graphics"
