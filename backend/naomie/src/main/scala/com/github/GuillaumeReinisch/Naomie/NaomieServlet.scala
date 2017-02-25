@@ -25,7 +25,8 @@ object GraphicsData {
     Graphic("2", "wind",List("oslo","paris")))
 }
 
-
+//world weather 05d283ea10134f78b0c182351172002
+//https://developer.worldweatheronline.com/premium-api-explorer.aspx
 class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSupport*/ {
 
   protected implicit val jsonFormats: Formats = DefaultFormats
@@ -63,9 +64,9 @@ class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSu
     implicit val formats = DefaultFormats
 
     val graphicForm = parse(request.body).extract[GraphicFrom]
-    val key         = Datastore.createKey(graphicForm.name, "Graphic")
+    val key         = DatastoreService.createKey(graphicForm.name, "Graphic","graphic")
     val graphic     = Graphic(key.getName,graphicForm.name,graphicForm.axis, graphicForm.metadata)
-    val entity      = Datastore.saveGraphic(graphic,key)
+    val entity      = DatastoreService.saveGraphic(graphic,key)
 
     logger.info(entity.toString)
     response.addHeader("ACK", "GOT IT")
@@ -116,7 +117,7 @@ class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSu
 
     params.get("uid") match {
       case Some(uid) => entity;
-      case None => GraphicsData.all;
+      case None => {logger.info("all graphs"); GraphicsData.all;}
     }
   }
 
