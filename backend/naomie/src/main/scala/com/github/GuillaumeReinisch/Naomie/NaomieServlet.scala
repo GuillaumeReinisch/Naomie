@@ -1,7 +1,9 @@
 package com.github.GuillaumeReinisch.Naomie
 
+import com.github.GuillaumeReinisch.Naomie.datastore.DatastoreService
 import com.github.GuillaumeReinisch.Naomie.datastore.Datastore
 import com.github.GuillaumeReinisch.Naomie.forms.GraphicFrom
+import org.scalatra.{Created, NotFound}
 import org.slf4j.LoggerFactory
 
 // JSON-related libraries
@@ -68,6 +70,38 @@ class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSu
     logger.info(entity.toString)
     response.addHeader("ACK", "GOT IT")
   }
+
+  post("/data/createScenario") {
+
+    logger.info("create Scenario request")
+
+    implicit val formats = DefaultFormats
+
+    val form     = parse(request.body).extract[ScenarioForm]
+    val key      = DatastoreService.createKey(form.name, "Scenario","data")
+    val scenario = Scenario(key.getName,form.name, form.metadata)
+
+    val entity   = DatastoreService.saveScenario(scenario,key)
+
+    logger.info(entity.toString)
+    Created( request.body, Map("Key" -> key.getName))
+  }
+
+  post("/data/addDataset/:scenario") {
+
+    logger.info("add dataset request")
+    logger.info("target scenario: " + params.get("scenario"))
+
+    params.get("scenario") match {
+      case Some(scenario) =>
+        val form     = parse(request.body).extract[DatasetForm]
+        val dataset  = Dataset(form.name,scenario, form.vheaders, form.columns)
+        val entity   = DatastoreService.saveDataset(dataset, DatastoreService.createKey(form.name, "Dataset","data"));
+      case None => NotFound("Sorry, the scenario could not be found"); logger.info("all graphs");
+    }
+
+  }
+
 
   get("/graphics") {
 
