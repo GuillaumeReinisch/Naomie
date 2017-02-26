@@ -1,9 +1,8 @@
 package com.github.GuillaumeReinisch.Naomie.datastore
 
 import com.github.GuillaumeReinisch.Naomie.models.{Dataset, Graphic, Scenario}
-import com.google.cloud.datastore.{Datastore, DatastoreOptions, Entity, Key}
-import org.json4s._
-import org.json4s.jackson.JsonMethods.parse
+import com.google.cloud.datastore.Query._
+import com.google.cloud.datastore._
 import org.slf4j.LoggerFactory
 /**
   * Created by lcts on 19/02/17.
@@ -76,11 +75,21 @@ object DatastoreService {
       logger.error("no scenario found : ")
       None
     }
-    logger.info("scenario found :"+ entity.toString )
-    implicit val formats = DefaultFormats
-    var scenario = parse(entity.toString).extract[Scenario]
+    val scenario = Scenario(entity)
     logger.info(scenario.toString )
     Option(scenario)
   }
 
+  def query(namespace : String, kind : String ):  QueryResults[Entity] = {
+
+    logger.info("query "+ namespace + "::" + kind )
+
+    val query   = newEntityQueryBuilder().setKind(kind).build();
+    // we need this to do  datastore(namespace).run() ... because of ambiguous 'run' method
+    val ambig = datastore(namespace)
+    val methods = ambig.getClass.getMethods.filter(_.getName == "run")
+    var wanted = methods.find(_.getParameterTypes.length == 1).get
+    wanted.setAccessible(true);
+    wanted.invoke(ambig, query).asInstanceOf[QueryResults[Entity]]
+  }
 }
