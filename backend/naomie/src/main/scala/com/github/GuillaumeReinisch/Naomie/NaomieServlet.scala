@@ -1,7 +1,6 @@
 package com.github.GuillaumeReinisch.Naomie
 
 import scala.collection.JavaConverters._
-
 import com.github.GuillaumeReinisch.Naomie.datastore.DatastoreService
 import com.github.GuillaumeReinisch.Naomie.forms.{DatasetForm, GraphicFrom, ScenarioForm}
 import com.github.GuillaumeReinisch.Naomie.models.{Dataset, Scenario}
@@ -105,7 +104,6 @@ class NaomieServlet extends NaomieStack  with JacksonJsonSupport  with CorsSuppo
         val entity   = DatastoreService.saveDataset(dataset, DatastoreService.createKey( form.name + "@" +  params("scenario") , "Dataset","data"));
       case None => NotFound("Sorry, the scenario could not be found"); logger.info("all graphs");
     }
-
   }
 
 
