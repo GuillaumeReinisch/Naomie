@@ -3,10 +3,17 @@ import { Graphic}      from '../models/data-mockup'
 import { OnInit }     from '@angular/core';
 import { GraphicService } from '../services/graphic.service';
 
+
+import { MdProgressCircle } from '@angular/material';
+
 @Component({
   selector: 'graphic-browser',
   providers:[GraphicService],
-  template: `<h2>graphic list</h2>
+  template: `<h2>graphic list <span *ngIf="loading"> loading </span></h2>
+  <div>
+  <md-progress-circle mode="indeterminate" color="red"></md-progress-circle>
+  </div>
+
   <ul class="graphics">
     <li *ngFor="let graph of graphics"
       [class.selected]="graph === selectedGraphic"
@@ -14,6 +21,7 @@ import { GraphicService } from '../services/graphic.service';
       <span class="badge">{{graph.name}}</span> {{graph.uid}}
     </li>
   </ul>
+
   `,
   styles: [`
     .selected {
@@ -73,10 +81,13 @@ export class GraphicBrowserComponent implements OnInit {
 
   selectedGraphic : Graphic;
 
+  loading = false;
+
   constructor(private graphsService: GraphicService) { }
 
   ngOnInit(): void {
-    this.graphsService.getGraphics().then(graphs => this.graphics = graphs);
+    this.loading = true;
+    this.graphsService.getGraphics().then(graphs => {this.graphics = graphs; this.loading = false;});
    }
 
   onSelect(graph : Graphic) : void {
