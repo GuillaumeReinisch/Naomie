@@ -12,6 +12,7 @@ import { AppComponent }  from './components/app.component';
 import { GraphicBrowserComponent }  from './components/graphic-browser.component';
 import { NumericalDataComponent }  from './components/numerical-data.component';
 import { DashboardComponent }  from './components/dashboard.component';
+import { ScenarioViewComponent }  from './components/scenario-view.component';
 
 import { AppRoutingModule }     from './app-routing.module';
 
