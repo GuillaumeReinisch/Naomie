@@ -5,7 +5,7 @@ import scala.collection.JavaConverters._
 import com.github.GuillaumeReinisch.Naomie.datastore.DatastoreService
 import com.github.GuillaumeReinisch.Naomie.forms.{DatasetForm, GraphicFrom, ScenarioForm}
 import com.github.GuillaumeReinisch.Naomie.models.{Dataset, Scenario}
-import org.scalatra.{Created, NotFound}
+import org.scalatra.{CorsSupport, Created, NotFound}
 import org.slf4j.LoggerFactory
 
 // JSON-related libraries
@@ -22,18 +22,17 @@ object GraphicsData {
     * Some fake data so we can simulate retrievals.
     */
   var all = List(
-    Graphic("0", "temperature", List("oslo","paris")),
-    Graphic("1", "pressure",List("oslo","paris")),
-    Graphic("2", "wind",List("oslo","paris")))
+    Graphic("0", "T Summer vs Winter", List("T_July","T_January")),
+    Graphic("1", "T/P Summer vs Winter",List("T_July/T_January","P_July/P_January")))
 }
 
 //world weather 05d283ea10134f78b0c182351172002
 //https://developer.worldweatheronline.com/premium-api-explorer.aspx
-class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSupport*/ {
+class NaomieServlet extends NaomieStack  with JacksonJsonSupport  with CorsSupport {
 
   protected implicit val jsonFormats: Formats = DefaultFormats
 
-  protected val applicationName           = Some("Naomie")
+  protected val applicationName: Option[String] = Some("/v2/Store")
   protected val applicationDescription    = "The Naomie API. It exposes operations for managing data w/ datastore."
 
   val logger    =  LoggerFactory.getLogger(getClass)
@@ -134,11 +133,11 @@ class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSu
     params.get("uid") match {
       case Some(uid) =>
         logger.info("get scenario " + uid);
-        DatastoreService.getScenario(DatastoreService.createKey(uid,"Scenario","data")) match {
+        DatastoreService.getScenario(DatastoreService.createKey(uid, "Scenario", "data")) match {
           case Some(scenario) => scenario;
           case None => NotFound("Sorry, the scenario could not be found");
         };
-      case None => {
+      case None =>
         logger.info("get all scenarios");
         val result = DatastoreService.query("data", "Scenario").asScala
         val list = scala.collection.mutable.ListBuffer.empty[Scenario]; //Vector.empty[Scenario];
@@ -155,7 +154,7 @@ class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSu
       params.get("uid") match {
         case Some(uid) =>
           logger.info("get datasets of " + uid);
-        val result = DatastoreService.query("data","Scenario").asScala
+          val propertyFilter = DatastoreService.createFilter("parent","=",uid);
           val result         = DatastoreService.query("data","Dataset", propertyFilter).asScala
           val list   = scala.collection.mutable.ListBuffer.empty[Scenario];//Vector.empty[Scenario];
           result.foreach( a => list += Scenario(a))
