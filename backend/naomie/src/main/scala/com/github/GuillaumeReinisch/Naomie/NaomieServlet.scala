@@ -42,6 +42,10 @@ class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSu
   val namespace   = "graphics"
   val datastore   = DatastoreOptions.newBuilder().setProjectId(projectId).setNamespace(namespace).build().getService();
 
+  options("/*"){
+    response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
+  }
+
   before() {
     contentType = formats("json")
   }
