@@ -136,32 +136,46 @@ class NaomieServlet extends NaomieStack with JacksonJsonSupport /*with SwaggerSu
         };
       case None => {
         logger.info("get all scenarios");
-        val result = DatastoreService.query("data","Scenario").asScala
-        val list   = scala.collection.mutable.ListBuffer.empty[Scenario];//Vector.empty[Scenario];
-        result.foreach( a => list += Scenario(a))
+        val result = DatastoreService.query("data", "Scenario").asScala
+        val list = scala.collection.mutable.ListBuffer.empty[Scenario]; //Vector.empty[Scenario];
+        result.foreach(a => list += Scenario(a))
+        logger.info("number of scenario " + list.size);
         list
+    }
+  }
+/*
+  get("/datasets") {
+
+      logger.info("datasets request")
+
+      params.get("uid") match {
+        case Some(uid) =>
+          logger.info("get datasets of " + uid);
+        val result = DatastoreService.query("data","Scenario").asScala
+          val result         = DatastoreService.query("data","Dataset", propertyFilter).asScala
+          val list   = scala.collection.mutable.ListBuffer.empty[Scenario];//Vector.empty[Scenario];
+          result.foreach( a => list += Scenario(a))
+          list
+        case None => NotFound("Sorry, you need to supply the scenario id");
       }
-    }
+  }*/
 
+   get("/datasets/:uid") {
 
-    //var list = List.empty[Scenario];
-    //result.foreach( entity => { println(Scenario(entity)); list :+ Scenario(entity);})
-    //println(list);
-    /*
-    var q = new Query("Person")
+      logger.info("datasets request")
 
-    val keyFactory  = datastore.newKeyFactory().setKind("Graphic");
-    val key         = keyFactory.newKey("graph1");
-    val transaction = datastore.newTransaction();
-    val entity      = transaction.get(key);
-
-    logger.info(entity.toString)
-
-    params.get("uid") match {
-      case Some(uid) => entity;
-      case None => {logger.info("all graphs"); GraphicsData.all;}
-    }
-    */
+      params.get("uid") match {
+        case Some(uid) =>
+          logger.info("get datasets of " + uid);
+          val propertyFilter  = DatastoreService.createFilter("parent","=",uid);
+          val results         = DatastoreService.query("data","Dataset", propertyFilter)
+          val list            = scala.collection.mutable.ListBuffer.empty[Dataset];
+          while (results.hasNext()) {
+            list += Dataset(results.next())
+          }
+          list
+        case None => NotFound("Sorry, you need to supply the scenario id");
+      }
   }
 
 }
