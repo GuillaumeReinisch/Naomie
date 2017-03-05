@@ -93,4 +93,29 @@ object DatastoreService {
     wanted.setAccessible(true);
     wanted.invoke(ambig, query).asInstanceOf[QueryResults[Entity]]
   }
+
+  def createFilter( name : String, operator: String, value : String ): Filter = {
+
+    operator match {
+      case "=" =>  PropertyFilter.eq(name, value);
+      case ">" =>  PropertyFilter.gt(name, value);
+      case "<" =>  PropertyFilter.lt(name, value);
+      case ">=" =>  PropertyFilter.ge(name, value);
+      case "<=" =>  PropertyFilter.le(name, value);
+    }
+  }
+
+
+   def query(namespace : String, kind : String, filter : Filter ):  QueryResults[Entity] = {
+
+    logger.info("query "+ namespace + "::" + kind );
+    val query   = newEntityQueryBuilder().setKind(kind).setFilter(filter).build();
+    // we need this to do  datastore(namespace).run() ... because of ambiguous 'run' method
+    val ambig = datastore(namespace)
+    val methods = ambig.getClass.getMethods.filter(_.getName == "run")
+    var wanted = methods.find(_.getParameterTypes.length == 1).get
+    wanted.setAccessible(true);
+    wanted.invoke(ambig, query).asInstanceOf[QueryResults[Entity]]
+  }
+
 }
