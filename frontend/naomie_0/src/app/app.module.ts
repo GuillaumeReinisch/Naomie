@@ -7,7 +7,6 @@ import {RouterModule} from '@angular/router'
 //import 'hammerjs'
 import { MaterialModule } from '@angular/material';
 
-
 import { AppComponent }  from './components/app.component';
 import { GraphicBrowserComponent }  from './components/graphic-browser.component';
 import { NumericalDataComponent }  from './components/numerical-data.component';
@@ -25,7 +24,7 @@ import { AppRoutingModule }     from './app-routing.module';
      MaterialModule.forRoot(),
      AppRoutingModule
  ],
-  declarations: [ AppComponent , GraphicBrowserComponent, NumericalDataComponent, DashboardComponent],
+  declarations: [ AppComponent , GraphicBrowserComponent, NumericalDataComponent, DashboardComponent, ScenarioViewComponent],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
