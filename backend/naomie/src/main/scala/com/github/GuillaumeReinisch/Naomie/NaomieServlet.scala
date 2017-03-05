@@ -30,7 +30,6 @@ object GraphicsData {
 class NaomieServlet extends NaomieStack  with JacksonJsonSupport  with CorsSupport {
 
   protected implicit val jsonFormats: Formats = DefaultFormats
-
   protected val applicationName: Option[String] = Some("/v2/Store")
   protected val applicationDescription    = "The Naomie API. It exposes operations for managing data w/ datastore."
 

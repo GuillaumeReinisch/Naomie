@@ -1,11 +1,7 @@
 package com.github.GuillaumeReinisch.Naomie
 
 import org.scalatra._
-import scalate.ScalateSupport
-import org.fusesource.scalate.{ TemplateEngine, Binding }
-import org.fusesource.scalate.layout.DefaultLayoutStrategy
 import org.scalatra.scalate.ScalateSupport
-import collection.mutable
 
 trait NaomieStack extends ScalatraServlet with ScalateSupport {
 
