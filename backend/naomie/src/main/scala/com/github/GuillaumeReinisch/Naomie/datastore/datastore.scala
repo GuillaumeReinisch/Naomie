@@ -2,6 +2,7 @@ package com.github.GuillaumeReinisch.Naomie.datastore
 
 import com.github.GuillaumeReinisch.Naomie.models.{Dataset, Graphic, Scenario}
 import com.google.cloud.datastore.Query._
+import com.google.cloud.datastore.StructuredQuery.{Filter, PropertyFilter}
 import com.google.cloud.datastore._
 import org.slf4j.LoggerFactory
 /**
