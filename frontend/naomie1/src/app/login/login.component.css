@@ -1,0 +1,73 @@
+.main {
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    height: 95%;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.login-box {
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 40%;
+    height: 30%;
+    z-index: inherit;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.ui-form {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.field {
+    flex-basis: 100%;
+    margin: 5px 0;
+    padding: 3px;
+}
+
+.submit-button {
+    width:100%;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+
+.use-conditions {
+    text-align: center;
+    font-size: 12px;
+    padding: 0 7%;
+    color: rgba(100, 100, 100, 0.9)
+}
+
+img.bg {
+    /* Set rules to fill background */
+    min-height: 100%;
+
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}

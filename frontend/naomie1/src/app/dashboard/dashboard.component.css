@@ -1,0 +1,29 @@
+.user-card {
+  width: 400px;
+}
+
+.project-card {
+  width: 400px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.project {
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+  }
+
+.project.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+  }
+.project:hover {
+    left: .5em;
+    box-shadow: -5px 10px 10px 1px rgba(1., 0, 0, 0.7);
+  }
+
+  .badge:hover {
+      left: .5em;
+      background-color: #BBD8DC;
+    }

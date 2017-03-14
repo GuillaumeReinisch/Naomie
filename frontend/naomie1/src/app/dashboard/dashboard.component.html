@@ -1,0 +1,32 @@
+<h2> Dashboard
+<button  md-raised-button color="primary" (click)="openDialog()" >New project</button>
+</h2>
+<md-spinner *ngIf="loading" mode="indeterminate" color="primary"> loading projects</md-spinner>
+
+<br>
+     <div *ngFor='let project of projects' class="col-md-4">
+
+       <md-card class="project"  >
+         <md-toolbar color="primary" [class.selected]="project === selectedProject" >
+            <span (click)="onSelect(project)" >{{project.name}}</span>
+            <span class="toolbar-spacer"></span>
+            <span class="glyphicon glyphicon-remove pull-right" (click)="deleteProject(project.id)"></span>
+         </md-toolbar>
+         <md-card-content>
+           <p>
+            {{project.summary}}
+           </p>
+
+           <ul class="scenarios">
+             <span >scenarios:</span>
+              <li *ngFor="let scenario of project.scenarios">
+                <span (click)="onSelectScenario(scenario)" class="badge">{{scenario}}</span>
+              </li>
+            </ul>
+            <ul class="graphics">
+              <span >graphics:</span>
+             </ul>
+         </md-card-content>
+       </md-card>
+
+     </div>

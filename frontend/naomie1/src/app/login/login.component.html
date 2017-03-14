@@ -1,0 +1,20 @@
+<!--
+<img src="../../static/images/login_screen.jpg" alt="login_screen" class="bg">
+-->
+<div class="flex-container main">
+    <div class="flex-container login-box">
+        <h1>Login</h1>
+
+        <form #f="ngForm" (ngSubmit)="login(f.value)" class="ui-form">
+                <input class="field" type="email" id="email" placeholder="Email" name="email" ngModel>
+
+                <input class="field" type="password" id="password" placeholder="Password" name="password" ngModel>
+
+                <button  md-raised-button type="submit" color="primary" class="submit-button">Login</button>
+        </form>
+
+        <div class="use-conditions">
+            Use restricted to Schlumberger authorized users who comply with the Information Security User Standard and Classification Standard. Usage is monitored. Unauthorized use will be prosecuted.
+        </div>
+    </div>
+</div>

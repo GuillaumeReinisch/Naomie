@@ -1,0 +1,36 @@
+<div  class="col-md-4" >
+  <md-tab-group>
+
+      <md-tab label="My collections">
+        <md-toolbar class="toolbar">
+          <span class="toolbar-spacer"></span>
+
+          <button md-button (click)="onNewCollection()">
+            <span class="glyphicon glyphicon-folder-open" ></span> New
+          </button>
+          <button md-button >
+            <span class="glyphicon glyphicon-sort-by-attributes"></span> Sort
+          </button>
+
+        </md-toolbar>
+
+        <ul class="collection">
+          <li *ngFor="let collection of collections">
+               <span class="badge">{{collection.name}}</span>
+          </li>
+        </ul>
+
+      </md-tab>
+
+      <md-tab label="History">
+        <h1>Some more tab content</h1>
+        <p>...</p>
+      </md-tab>
+
+  </md-tab-group>
+</div>
+<div  class="col-md-8" >
+  <md-tab-group>
+
+  </md-tab-group>
+</div>

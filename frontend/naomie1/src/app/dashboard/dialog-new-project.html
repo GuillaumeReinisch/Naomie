@@ -1,0 +1,19 @@
+<form #formData="ngForm" (ngSubmit)="dialogRef.close(formData.value)" class="new-project-form">
+  <md-toolbar color="primary">New project</md-toolbar>
+  <br>
+  <md-input-container class="example-full-width">
+    <input mdInput placeholder="Company" disabled value="Sclumberger" name="company" >
+  </md-input-container>
+  <br>
+  <md-input-container class="example-full-width">
+    <input mdInput #projectName maxlength="15" placeholder="Project name" name="name" ngModel>
+    <md-hint align="end">ok</md-hint>
+  </md-input-container>
+
+  <p>
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="description" name="description" ngModel></textarea>
+    </md-input-container>
+  </p>
+  <button md-raised-button type="submit" color="primary" >Submit</button>
+</form>

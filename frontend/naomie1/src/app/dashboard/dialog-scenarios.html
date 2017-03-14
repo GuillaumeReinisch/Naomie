@@ -1,0 +1,22 @@
+<span> {{ data.scenario }} </span>
+<md-spinner *ngIf="data.loading" mode="indeterminate" color="primary"></md-spinner>
+
+<ul class="dataset">
+
+     <li *ngFor="let dataset of data.datasets">
+
+       <span class="badge" [class.selected]="dataset === selectedDataset"
+       (click)="onSelect(dataset)" >{{dataset.name}}</span>
+
+       <table style="width:100%" *ngIf="dataset === selectedDataset">
+          <tr>
+            <th> parameters </th>
+            <th *ngFor="let hheader of getHHeaders(dataset)"> {{hheader}} </th>
+          </tr>
+          <tr *ngFor="let line of dataset.vheaders; let i = index;">
+            <th> {{line}} </th>
+            <th *ngFor="let value of getValues(dataset,i)"> {{value}} </th>
+          </tr>
+        </table>
+     </li>
+</ul>

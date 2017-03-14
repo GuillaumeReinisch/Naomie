@@ -1,0 +1,15 @@
+<form #formData="ngForm" (ngSubmit)="dialogRef.close(formData.value)" class="new-collection-form">
+  <md-toolbar >Create a collection</md-toolbar>
+
+  <md-input-container class="example-full-width">
+    <input mdInput #collectionName maxlength="15" placeholder="Collection name" name="name" ngModel>
+  </md-input-container>
+
+  <p>
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="description" name="description" ngModel></textarea>
+    </md-input-container>
+  </p>
+  <button md-raised-button  >Cancel</button>
+  <button md-raised-button type="submit" color="primary" >Submit</button>
+</form>
