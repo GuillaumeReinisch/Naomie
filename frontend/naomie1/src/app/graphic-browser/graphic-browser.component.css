@@ -1,3 +1,25 @@
 .toolbar-spacer {
   flex: 1 1 auto;
 }
+
+.collection {
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+  }
+
+.collection.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+  }
+  .headline.selected:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+    }
+  .headline:hover {
+      left: .5em;
+      box-shadow: -5px 10px 10px 1px rgba(1., 0, 0, 0.7);
+    }
+
+  .collection:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+  }

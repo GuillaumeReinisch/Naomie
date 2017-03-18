@@ -4,6 +4,12 @@
   <md-input-container class="example-full-width">
     <input mdInput #collectionName maxlength="15" placeholder="Collection name" name="name" ngModel>
   </md-input-container>
+  <br>
+  <md-checkbox class="namespace" #useNamespace name="useNamespace" ngModel >Use namespace</md-checkbox>
+  <br>
+  <md-input-container *ngIf="formData.value.useNamespace" class="example-full-width">
+    <input mdInput #namespace maxlength="15" placeholder="namespace" name="namespace" ngModel>
+  </md-input-container>
 
   <p>
     <md-input-container class="example-full-width">

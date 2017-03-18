@@ -11,4 +11,7 @@ import {MdDialog, MdDialogRef,MdDialogConfig, MD_DIALOG_DATA}  from '@angular/ma
 export class NewCollectionDialog {
   constructor(public dialogRef: MdDialogRef<NewCollectionDialog>,
   @Inject(MD_DIALOG_DATA) public data: any) {}
+
+  public useNamespace = true;
+  
 }

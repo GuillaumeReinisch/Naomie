@@ -14,11 +14,15 @@
 
         </md-toolbar>
 
-        <ul class="collection">
-          <li *ngFor="let collection of collections">
-               <span class="badge">{{collection.name}}</span>
-          </li>
-        </ul>
+        <md-list>
+          <md-list-item *ngFor="let  collection of collections" class="collection">
+            <md-icon md-list-avatar class="btn btn-info glyphicon glyphicon-folder-open" ></md-icon>
+          
+            <h4 md-line class="headline">{{collection.name}} </h4>
+            <p md-line  class="headline"> {{collection.creationDate}} </p>
+          </md-list-item>
+          <md-divider></md-divider>
+        </md-list>
 
       </md-tab>
 
