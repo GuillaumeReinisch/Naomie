@@ -1,24 +1,32 @@
 
-
 <!--
 https://github.com/angular/material2/blob/master/src/demo-app/sidenav/sidenav-demo.html-->
-<md-sidenav-container class="demo-sidenav-container">
-  <md-sidenav #start (open)="myinput.focus()" mode="side">
+<md-sidenav-container class="sidenav-container">
+  <md-sidenav #start (open)="myinput.focus()" class="sidenav" >
 
+    <md-toolbar color="primary">
+      <span>Menu</span>
+      <span class="toolbar-spacer"></span>
+      <button md-button (click)="logout()">
+          <span class="glyphicon glyphicon-log-out" aria-hidden="true" ></span>
+      </button>
+    </md-toolbar>
+    <div class="separator">
+    </div>
     <tr class="active">
-      <th><a routerLink="/login">login</a></th>   <th></th>
+      <th><a routerLink="/login" class="glyphicon glyphicon-user">    login</a></th>   <th></th>
     </tr>
     <tr class="active">
-      <th><a routerLink="/login">dashboard</a></th>   <th></th>
+      <th> <a routerLink="/dashboard" class="glyphicon glyphicon-dashboard" >    dashboard</a></th>   <th></th>
     </tr>
     <tr class="active">
-      <th><a routerLink="/graphics">graphics</a></th>   <th></th>
+      <th><a routerLink="/graphics" class="glyphicon glyphicon-pencil">    graphics</a></th>   <th></th>
     </tr>
     <tr class="active">
-      <th><a routerLink="/login">data</a></th>   <th></th>
+      <th><a routerLink="/data"  	class="glyphicon glyphicon-th">    data</a></th>   <th></th>
     </tr>
     <tr class="active">
-      <th><a routerLink="/login">parameters</a></th>   <th></th>
+      <th><a routerLink="/login" class="glyphicon glyphicon-cog">    parameters</a></th>   <th></th>
     </tr>
     <br>
     <button md-button (click)="end.open()">Open End Side</button>
@@ -49,9 +57,7 @@ https://github.com/angular/material2/blob/master/src/demo-app/sidenav/sidenav-de
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-
 </md-sidenav-container>
-
 
 <!--
 <a routerLink="/dashboard">dashboard</a>
