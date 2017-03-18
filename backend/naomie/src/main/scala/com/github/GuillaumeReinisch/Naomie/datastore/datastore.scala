@@ -1,6 +1,6 @@
 package com.github.GuillaumeReinisch.Naomie.datastore
 
-import com.github.GuillaumeReinisch.Naomie.models.{Dataset, Graphic, Scenario}
+import com.github.GuillaumeReinisch.Naomie.models._
 import com.google.cloud.datastore.Query._
 import com.google.cloud.datastore.StructuredQuery.{Filter, PropertyFilter}
 import com.google.cloud.datastore._
@@ -24,6 +24,31 @@ object DatastoreService {
 
     val keyFactory  = datastore(namespace).newKeyFactory().setKind(kind);
     keyFactory.newKey(name);
+  }
+
+  def saveProject(project : Project, key : Key) : Entity = {
+
+    val entity      = Entity.newBuilder(key)
+      .set("name", project.name)
+      .set("userName", project.userName)
+      .set("creationDate", project.creationDate)
+      .set("summary", project.summary)
+      .set("scenarios", project.scenarios.foldLeft(""){ (acc , elem) => acc+" "+elem })
+      .set("graphics", project.graphics.foldLeft(""){ (acc , elem) => acc+" "+elem });
+
+    datastore(key.getNamespace).put(entity.build());
+  }
+
+  def saveCollection(collection: GraphicCollection, key : Key) : Entity ={
+
+    val entity      = Entity.newBuilder(key)
+      .set("name", collection.name)
+      .set("userName", collection.userName)
+      .set("creationDate", collection.creationDate)
+      .set("description", collection.description)
+      .set("graphics", collection.graphics.foldLeft(""){ (acc , elem) => acc+" "+elem });
+
+    datastore(key.getNamespace).put(entity.build());
   }
 
   def saveGraphic(graphic : Graphic, key : Key) : Entity = {
@@ -106,10 +131,14 @@ object DatastoreService {
   }
 
 
-   def query(namespace : String, kind : String, filter : Filter ):  QueryResults[Entity] = {
+   def query(namespace : String, kind : String, filter : Option[Filter] ):  QueryResults[Entity] = {
 
     logger.info("query "+ namespace + "::" + kind );
-    val query   = newEntityQueryBuilder().setKind(kind).setFilter(filter).build();
+    val query  = filter match {
+      case Some(f) => newEntityQueryBuilder().setKind(kind).setFilter(f).build() ;
+      case _       => newEntityQueryBuilder().setKind(kind).build();
+    }
+    //val query   = newEntityQueryBuilder().setKind(kind).setFilter(filter).build();
     // we need this to do  datastore(namespace).run() ... because of ambiguous 'run' method
     val ambig = datastore(namespace)
     val methods = ambig.getClass.getMethods.filter(_.getName == "run")
@@ -117,5 +146,6 @@ object DatastoreService {
     wanted.setAccessible(true);
     wanted.invoke(ambig, query).asInstanceOf[QueryResults[Entity]]
   }
+
 
 }
