@@ -1,0 +1,64 @@
+
+
+<form #formData="ngForm" (ngSubmit)="dialogRef.close(formData.value)" class="col-md-8">
+  <md-toolbar >Create a parameter</md-toolbar>
+
+  <br>
+  <table style="width:100%">
+     <tr class="" *ngFor="let inputVar of inputVariables"  >
+       <th> let </th>
+       <th> {{inputVar.name}} </th>
+       <th> = </th>
+       <th >
+
+         <md-input-container >
+           <input mdInput placeholder="variable"
+           [mdAutocomplete]="auto" [formControl]="variableCompletionCtrl"
+            class="optionAutoComplete"
+            (input)="onInputVarChange($event.target.value, inputVar)"
+            required  >
+         </md-input-container>
+
+         <md-autocomplete #auto="mdAutocomplete">
+           <md-option *ngFor="let optionVar of filteredVariables | async" [value]="optionVar"
+           (onSelect)="onInputVarChange($event.source.value, inputVar)" >
+             {{optionVar}}
+           </md-option>
+         </md-autocomplete>
+
+       </th>
+       <th>
+         <span md-raised-button class="glyphicon glyphicon-remove" (click)="removeVariable(inputVar)"></span>
+       </th>
+     </tr>
+     <tr><th></th><th></th><th></th><th></th><th><span md-raised-button class="glyphicon glyphicon-plus" (click)="addVariable()"></span></th>
+     <tr><th>in</th><th></th><th></th>
+
+     <md-input-container >
+       <input mdInput placeholder="formula" #formula name="formula"  ngModel required>
+     </md-input-container><th></th><th></th></tr>
+
+   </table>
+
+  <br>
+  <div class="inExistCollection">
+    <span> Save to existing collection </span>
+    <br><br>
+    <md-select placeholder="Collection" #selectedCollection name="selectedCollection"  ngModel required>
+      <md-option *ngFor="let collection of data.collections" [value]="collection.name">
+        {{collection.name}}
+      </md-option>
+    </md-select>
+  </div>
+
+  <div class="inNewCollection">
+  <span> Or create new collection </span>
+  <md-input-container >
+    <input mdInput placeholder="new collection name"  #newCollection name="newCollection" ngModel>
+  </md-input-container>
+  <br>
+  </div>
+
+  <button md-raised-button  >Cancel</button>
+  <button md-raised-button type="submit" color="primary" >Save</button>
+</form>

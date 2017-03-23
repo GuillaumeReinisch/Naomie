@@ -1,0 +1,60 @@
+
+
+<div  >
+  <md-tab-group>
+
+      <md-tab label="My collections">
+        <md-toolbar class="toolbar">
+
+          <button md-button (click)="onNewParameter()" >
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+
+          <span class="toolbar-spacer"></span>
+
+          <button md-button (click)="onNewCollection()">
+            <span class="glyphicon glyphicon-folder-open" ></span>
+          </button>
+          <button md-button >
+            <span class="glyphicon glyphicon-sort-by-attributes"></span>
+          </button>
+        </md-toolbar>
+<!--
+        <md-list>
+          <md-list-item *ngFor="let  collection of collections" class="collection">
+            <md-icon md-list-avatar class="btn btn-info glyphicon glyphicon-folder-open" ></md-icon>
+
+            <h4 md-line class="headline">{{collection.name}} </h4>
+            <p md-line  class="headline"> {{collection.creationDate}} </p>
+            <ul >
+              <li *ngFor="let parameter of collection.parametersSummary">
+                <span class="badge">{{parameter.formula}}</span>
+              </li>
+            </ul>
+          </md-list-item>
+          <md-divider></md-divider>
+        </md-list>
+-->
+        <ul >
+          <li *ngFor="let  collection of collections" class="collection">
+            <span md-list-avatar class="btn btn-info glyphicon glyphicon-folder-open" ></span>
+
+            <h4 md-line class="headline">{{collection.name}} </h4>
+            <p md-line  class="headline"> {{collection.creationDate}} </p>
+            <ul >
+              <li *ngFor="let parameter of collection.parametersSummary">
+                <span class="badge">{{parameter.formula}}</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </md-tab>
+
+      <md-tab label="History">
+        <h1>Some more tab content</h1>
+        <p>...</p>
+      </md-tab>
+
+  </md-tab-group>
+</div>
