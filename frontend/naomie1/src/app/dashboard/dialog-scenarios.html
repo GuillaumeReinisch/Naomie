@@ -9,9 +9,9 @@
        (click)="onSelect(dataset)" >{{dataset.name}}</span>
 
        <table style="width:100%" *ngIf="dataset === selectedDataset">
-          <tr>
-            <th> parameters </th>
-            <th *ngFor="let hheader of getHHeaders(dataset)"> {{hheader}} </th>
+          <tr class="header">
+            <th>  </th>
+            <th *ngFor="let hheader of getHHeaders(dataset)" > {{hheader}} </th>
           </tr>
           <tr *ngFor="let line of dataset.vheaders; let i = index;">
             <th> {{line}} </th>
@@ -19,4 +19,5 @@
           </tr>
         </table>
      </li>
+     
 </ul>

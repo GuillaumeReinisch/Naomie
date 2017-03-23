@@ -27,3 +27,18 @@
       left: .5em;
       background-color: #BBD8DC;
     }
+
+.header{
+  font-size:  1.3em
+}
+table {
+    border-spacing: 15px;
+    border-collapse: separate;
+}
+th {
+    border-bottom: 1px solid #ddd;
+}
+td {
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+}
