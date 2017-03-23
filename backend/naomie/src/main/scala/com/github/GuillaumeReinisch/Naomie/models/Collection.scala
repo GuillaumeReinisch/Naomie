@@ -28,10 +28,9 @@ case class GraphicSummary(keyGraphic: String, name: String){}
 /**
   * Created by lcts on 15/03/17.
   */
-case class Collection(name:String, key : String, userName: String, description:String,  creationDate: String ,namespace :String = "") {
-
+case class Collection(name:String, key : String, userName: String,
+                      description:String,  creationDate: String ) {
 }
-
 
 
 object Collection {

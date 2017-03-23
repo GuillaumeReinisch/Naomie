@@ -9,7 +9,6 @@ object Dataset {
   def apply( entity : Entity) : Dataset = {
 
     val headers = entity.getString("hheaders").split(" ").toList.drop(1);
-    logger.info("dataset's headers:" + headers.toString);
 
     val columns = for { hHeader <- headers }
       yield (hHeader, entity.getString(hHeader).split(" ").toList.drop(1).map( _.toDouble ).toVector)
