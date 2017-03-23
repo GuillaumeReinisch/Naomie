@@ -1,6 +1,9 @@
 .toolbar-spacer {
   flex: 1 1 auto;
 }
+.content{
+   padding:20px 50px;
+}
 
 
 .sidenav-container{
@@ -12,4 +15,5 @@
 a.glyphicon{
     font-size: 1.5em;
     height: 50px;
+    padding: 25px;
 }
