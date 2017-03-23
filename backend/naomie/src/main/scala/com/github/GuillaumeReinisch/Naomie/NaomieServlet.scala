@@ -163,6 +163,20 @@ class NaomieServlet extends NaomieStack  with JacksonJsonSupport  with CorsSuppo
     response.addHeader("ACK", "GOT IT")
   }
 
+    get("/data/variables") {
+
+    logger.info("variables request")
+    val results   = DatastoreService.query("data","Dataset", None)
+    val list      = scala.collection.mutable.ListBuffer.empty[Dataset];
+
+    while (results.hasNext()) {
+      list += Dataset(results.next())
+    }
+    val all = for( dataset <- list; vheader<- dataset.vheaders; column <- dataset.columns )
+        yield dataset.name.split("@")(0) +"."+vheader+"."+column._1;
+    all.toSet
+   }
+
   post("/data/createScenario") {
 
     logger.info("create Scenario request")
