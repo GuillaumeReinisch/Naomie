@@ -13,9 +13,12 @@ import { DashboardComponent,DialogNewProject, DialogScenarios }        from './d
 
 import { GraphicBrowserComponent }    from './graphic-browser/graphic-browser.component';
 import { NewCollectionDialog }        from './graphic-browser/new-collection.dialog';
+import { NewParameterDialog }        from './parameters-browser/new-parameter.dialog';
 
 import { AppRoutingModule }           from './app-routing.module';
 import { LoginComponent }             from './login/login.component';
+import { ScatterplotComponent } from './scatterplot/scatterplot.component';
+import { ParametersBrowserComponent } from './parameters-browser/parameters-browser.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +28,12 @@ import { LoginComponent }             from './login/login.component';
     LoginComponent,
     DialogNewProject,
     DialogScenarios,
-    NewCollectionDialog
+    NewCollectionDialog,
+    NewParameterDialog,
+    ScatterplotComponent,
+    ParametersBrowserComponent
   ],
-  entryComponents: [DialogNewProject,DialogScenarios,NewCollectionDialog],
+  entryComponents: [DialogNewProject,DialogScenarios,NewCollectionDialog, NewParameterDialog],
   imports: [
     LocalStorageModule.withConfig({
             prefix: 'naomie',
@@ -37,7 +43,8 @@ import { LoginComponent }             from './login/login.component';
     FormsModule,
     MaterialModule.forRoot(),
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
