@@ -161,6 +161,10 @@ object DatastoreService {
     }
   }
 
+  def createAncestorFilter( key : Key ): Filter = {
+    PropertyFilter.hasAncestor(key)
+  }
+
 
    def query(namespace : String, kind : String, filter : Option[Filter] ):  QueryResults[Entity] = {
 
