@@ -206,6 +206,26 @@ class NaomieServlet extends NaomieStack  with JacksonJsonSupport  with CorsSuppo
     //Created( request.body, Map("Key" -> key.getName))
   }
 
+
+  get("/data/parametersSummary/:collection") {
+
+    logger.info("get parametersSummary request")
+
+    params.get("collection") match {
+      case Some(collection) =>
+        logger.info("get parameters summary of " + collection);
+        val keyCollection   = DatastoreService.createKey(collection, "Collection","parameters")
+        val results         = DatastoreService.query("parameters","ParameterSummary", Option(DatastoreService.createAncestorFilter(keyCollection)) )
+        val list            = scala.collection.mutable.ListBuffer.empty[ParameterSummary];
+        while (results.hasNext()) {
+          list += ParameterSummary(results.next())
+        }
+        logger.info("number of parameters summary for collection  " + collection + ":" + list.size);
+        list
+      case None => BadRequest("collection can not be found")
+    }
+  }
+
   post("/data/createScenario") {
 
     logger.info("create Scenario request")
