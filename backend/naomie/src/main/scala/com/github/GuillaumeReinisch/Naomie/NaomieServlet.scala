@@ -177,6 +177,35 @@ class NaomieServlet extends NaomieStack  with JacksonJsonSupport  with CorsSuppo
     all.toSet
    }
 
+
+  post("/data/createParameter") {
+
+    logger.info("createParameter request")
+    implicit val formats = DefaultFormats
+
+    val form      = parse(request.body).extract[ParameterForm]
+    val key       = DatastoreService.createKey(form.formula, "Parameter","parameters")
+    val parameter = Parameter(form.formula,form.formula, form.variables, form.userName, form.creationDate)
+    logger.info(parameter.toString)
+
+    DatastoreService.createKey(parameter.formula,"parameter","parameters");
+    DatastoreService.saveParameter(parameter,Option(form.collection),key);
+    //Created( request.body, Map("Key" -> key.getName))
+  }
+
+
+  get("/data/parameters") {
+
+    logger.info("parameters request")
+
+    val result = DatastoreService.query("parameters", "Parameter").asScala
+    val list = scala.collection.mutable.ListBuffer.empty[Parameter]; //Vector.empty[Scenario];
+    result.foreach(a => list += Parameter(a))
+    logger.info("number of parameters " + list.size);
+    list
+    //Created( request.body, Map("Key" -> key.getName))
+  }
+
   post("/data/createScenario") {
 
     logger.info("create Scenario request")
