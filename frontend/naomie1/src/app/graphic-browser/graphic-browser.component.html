@@ -1,23 +1,29 @@
-<div  class="col-md-4" >
+
+
+<div   [ngClass]="currentClass">
   <md-tab-group>
 
       <md-tab label="My collections">
         <md-toolbar class="toolbar">
+
+          <button md-button (click)="onGraphicEdition()" >
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+
           <span class="toolbar-spacer"></span>
 
           <button md-button (click)="onNewCollection()">
-            <span class="glyphicon glyphicon-folder-open" ></span> New
+            <span class="glyphicon glyphicon-folder-open" ></span>
           </button>
           <button md-button >
-            <span class="glyphicon glyphicon-sort-by-attributes"></span> Sort
+            <span class="glyphicon glyphicon-sort-by-attributes"></span>
           </button>
-
         </md-toolbar>
 
         <md-list>
           <md-list-item *ngFor="let  collection of collections" class="collection">
             <md-icon md-list-avatar class="btn btn-info glyphicon glyphicon-folder-open" ></md-icon>
-          
+
             <h4 md-line class="headline">{{collection.name}} </h4>
             <p md-line  class="headline"> {{collection.creationDate}} </p>
           </md-list-item>
@@ -33,8 +39,71 @@
 
   </md-tab-group>
 </div>
-<div  class="col-md-8" >
+<div [ngClass]="'col-md-8'" *ngIf="editionMode" >
+
+
   <md-tab-group>
 
+    <md-tab label="New graphic" class="graphEdition">
+
+      <br>
+      <br>
+      <form #formData="ngForm" (ngSubmit)="dialogRef.close(formData.value)" class="graphicform">
+
+          <md-input-container class="example-full-width">
+            <input mdInput #collectionName maxlength="15" placeholder="tittle" name="name" ngModel>
+          </md-input-container>
+
+          <md-select placeholder="Collection" name="collection">
+              <md-option *ngFor="let collection of collections" [value]="collection.name">
+                  {{collection.name}}
+              </md-option>
+          </md-select>
+
+          <br>
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="x-axis" name="description" ngModel>
+          </md-input-container>
+          <button md-button (click)="end.open()" >
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+          <button md-button (click)="end.open()" >
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+          <br>
+          <md-input-container class="example-full-width">
+            <input mdInput placeholder="y-axis" name="description" ngModel>
+          </md-input-container>
+          <button md-button (click)="end.open()" >
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+          <button md-button (click)="end.open()" >
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+          <br>
+          <button md-button (click)="end.open()" >
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+      </form>
+
+      <md-sidenav-container class="sidenav-container">
+        <md-sidenav #end align="end">
+          End Side Drawer
+          <br>
+          <button md-button (click)="end.close()">Close</button>
+        </md-sidenav>
+        <button md-button (click)="end.open()" >
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+
+        <app-scatterplot></app-scatterplot>
+      </md-sidenav-container>
+
+    </md-tab>
+
+    <md-tab label="+">
+    </md-tab>
+
   </md-tab-group>
+
 </div>

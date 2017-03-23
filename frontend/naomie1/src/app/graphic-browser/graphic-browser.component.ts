@@ -17,6 +17,9 @@ export class GraphicBrowserComponent implements OnInit {
   public collections: Collection[]
   public loading : boolean = false
   public userName: string;
+  public currentClass = "col-md-8";
+
+  public editionMode = false;
 
   constructor(public dialog : MdDialog,
     private graphicsService : GraphicsService,
@@ -55,8 +58,14 @@ export class GraphicBrowserComponent implements OnInit {
     dialog.afterClosed().subscribe(form => {
         this.parametersService.createCollection(new CollectionForm(form.name, this.userName, form.description,this.getDate(), form.namespace));
     });
-
   }
+
+  onGraphicEdition() : void {
+    console.log("onGraphicEdition")
+    this.currentClass = "col-md-4"
+    this.editionMode  = true
+  }
+
   getDate() :string{
 
     var today = new Date();
