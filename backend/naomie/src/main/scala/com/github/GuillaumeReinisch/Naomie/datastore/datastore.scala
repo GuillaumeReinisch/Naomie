@@ -51,6 +51,37 @@ object DatastoreService {
     datastore(key.getNamespace).put(entity.build());
   }
 
+  def saveParameter(parameter: Parameter, collection: Option[String], key : Key) : Entity ={
+
+    val entity      = Entity.newBuilder(key)
+      .set("formula", parameter.formula)
+      .set("userName", parameter.userName)
+      .set("creationDate", parameter.creationDate)
+      .set("variables", parameter.variables.foldLeft(""){ case (acc , (key,value) ) => acc + " " +key+","+value });
+
+    val build = datastore(key.getNamespace).put(entity.build());
+    logger.info("build parameter = " + build.toString)
+
+    collection match {
+      case Some(collectionName) =>{
+        logger.info("add link to collection "+collectionName)
+
+        val keySummary = datastore("parameters").newKeyFactory()
+          .addAncestors(PathElement.of("Collection", collectionName))
+          .setKind("ParameterSummary")
+          .newKey(parameter.formula);
+
+        val entitySummary  = Entity.newBuilder(keySummary)
+          .set("formula", parameter.formula)
+          .set("variables", parameter.variables.foldLeft(""){ case (acc , (key,value) ) => acc + " " +key+","+value });
+
+        datastore(keySummary.getNamespace).put(entitySummary.build());
+      }
+      case None => {logger.info("no link added to collection") }
+    }
+    build;
+  }
+
   def saveGraphic(graphic : Graphic, key : Key) : Entity = {
 
     val entity      = Entity.newBuilder(key)
